@@ -1,0 +1,416 @@
+# =============================================================================
+#  LeadForge configuration  ::  edit this, not the code
+# =============================================================================
+
+[profile]
+name        = "AI Creative Studio"
+data_dir    = "data"
+timezone    = "Asia/Kolkata"
+market      = "global"          # global | india | usa | uk | mena | eu
+
+
+[limits]
+request_delay_ms = 900          # politeness delay per host. 900 = safe. 300 = fast/risky
+timeout_s        = 25
+crawl_pages      = 5            # pages per prospect site during enrichment
+max_per_source   = 150
+
+
+# -----------------------------------------------------------------------------
+#  YOUR OFFERS  -- what you sell. Drives the FIT score.
+#  `strong` = an explicit match (20 pts). `weak` = adjacent (8 pts).
+#  Add the exact words YOUR buyers use, in their language, not yours.
+# -----------------------------------------------------------------------------
+
+[[offers]]
+id     = "ai_ugc"
+name   = "AI UGC Ads"
+pitch  = "infinite UGC ad variants, no creators, no reshoots"
+strong = ["ugc", "ugc creator", "ugc creators", "ugc video", "ugc videos",
+          "ugc ads", "ugc content", "user generated content",
+          "user-generated content", "ai ugc", "creator videos",
+          "testimonial video", "testimonial videos", "creator-led ads",
+          "creator ads", "founder led video", "talking head ads"]
+weak   = ["influencer", "creator content", "social video", "short form video",
+          "shorts", "vertical video", "tiktok creator"]
+
+[[offers]]
+id     = "ai_ads"
+name   = "AI Ad Creative / Performance Ads"
+pitch  = "300 ad variants a month at the cost of one shoot"
+strong = ["video ad", "video ads", "ad creative", "ad creatives", "ad production",
+          "performance creative", "creative testing", "creative refresh",
+          "paid social creative", "meta ads creative", "facebook ads creative",
+          "tiktok ads creative", "youtube ads creative", "google ads video",
+          "video advertising", "ad creative production"]
+weak   = ["paid social", "media buying", "facebook ads", "meta ads", "tiktok ads",
+          "google ads", "ad campaign", "marketing campaign", "performance marketing",
+          "paid media", "ads manager", "creative strategy"]
+
+[[offers]]
+id     = "ai_product_ads"
+name   = "AI Product Ads & Visuals"
+pitch  = "catalog-grade product video and stills without a studio"
+strong = ["product video", "product videos", "product photo", "product photos",
+          "product photography", "packshot", "packshots", "product demo video",
+          "product ad", "product ads", "ecommerce video", "amazon listing video",
+          "shopify video", "catalog video", "product visuals", "product rendering",
+          "3d product video"]
+weak   = ["ecommerce", "e-commerce", "shopify", "amazon seller", "amazon listing",
+          "dtc brand", "d2c", "product launch", "listing images", "merchandising",
+          "product page", "catalog management"]
+
+[[offers]]
+id     = "ai_commercial"
+name   = "AI Commercial Ads & Brand Films"
+pitch  = "cinematic commercial work at a fraction of a film crew"
+# NOTE: bare "commercial" is deliberately NOT here - it matches
+# "Commercial Account Executive" and every B2B sales role on earth.
+strong = ["tv commercial", "brand commercial", "commercial video",
+          "commercial ad", "commercial ads", "brand film", "brand films",
+          "cinematic ad", "cinematic ads", "cinematic video", "hero film",
+          "campaign film", "spec ad", "commercial spot"]
+weak   = ["brand video", "corporate video", "startup video", "brand story",
+          "company video", "culture video", "explainer video", "promo video"]
+
+[[offers]]
+id     = "web3d"
+name   = "3D / Interactive Websites"
+pitch  = "immersion that makes the product the landing page"
+strong = ["3d website", "3d websites", "3d web", "interactive website",
+          "interactive site", "webgl", "three.js", "3d landing page",
+          "immersive website", "product configurator", "3d product configurator",
+          "virtual showroom", "3d store", "scroll animation website"]
+weak   = ["website redesign", "redesign our website", "landing page", "web design",
+          "webflow", "framer", "nextjs", "headless commerce", "new website",
+          "web developer", "frontend developer"]
+
+[[offers]]
+id     = "ai_film"
+name   = "AI Films & Animation"
+pitch  = "narrative and animated film made with generative pipelines"
+# "ai video" alone matches "AI Video Annotator" and "AI video API" - too broad.
+strong = ["ai film", "ai films", "generative video", "ai generated video",
+          "ai animation", "animated film", "narrative film", "ai short film",
+          "ai movie", "ai video production", "ai generated film"]
+weak   = ["animation", "animated video", "short film", "documentary",
+          "visual effects", "vfx", "motion graphics", "storyboarding"]
+
+[[offers]]
+id     = "ai_receptionist"
+name   = "AI Receptionist / Voice Agents"
+pitch  = "every call answered, every lead booked, 24/7"
+strong = ["ai receptionist", "ai answering", "phone answering",
+          "virtual receptionist", "voice agent", "voice ai", "ai voice agent",
+          "call answering service", "missed call", "missed calls",
+          "appointment booking", "answering service", "ai phone agent",
+          "ai phone system", "receptionist"]
+weak   = ["lead qualification", "booking system", "chatbot",
+          "customer support automation", "ai automation", "crm automation",
+          "scheduling software", "front desk", "call center"]
+
+
+# -----------------------------------------------------------------------------
+#  SIGNAL VOCABULARY  -- this is what makes the scoring work.
+#  Every phrase here is something a BUYER says. Keep them lowercase.
+# -----------------------------------------------------------------------------
+
+[keywords]
+buy = [
+  "looking for", "looking to hire", "we need", "we're looking", "we are looking",
+  "i need", "in need of", "seeking", "seeking a", "hire a", "hiring a",
+  "need a", "need an", "need someone", "need help with", "want to hire",
+  "any recommendations", "can anyone recommend", "who can", "where can i find",
+  "recommendations for", "request for proposal", "rfp", "request a quote",
+  "outsource", "outsourcing", "budget", "paid work", "urgent", "asap",
+  "immediately", "next month", "launching", "we're launching", "rebranding",
+  "quoting for", "send me quotes", "taking proposals", "open to proposals",
+]
+
+money = [
+  "budget", "paid", "compensation", "retainer", "per video", "per month",
+  "per project", "usd", "gbp", "eur", "inr", "monthly retainer",
+]
+
+# soft penalties  (-20 each)
+negative = [
+  "unpaid", "for free", "free of charge", "no budget", "equity only",
+  "equity-only", "revenue share", "rev share", "revenue-share",
+  "internship", "university project", "college project", "school project",
+  "volunteer", "pro bono", "portfolio piece", "exposure",
+]
+
+# hard rejects -- these are suppliers and students, never buyers
+hard_negative = [
+  "i am a video editor", "i'm a video editor", "i am a ugc creator",
+  "i'm a ugc creator", "i am a videographer", "i'm a videographer",
+  "i am a motion designer", "i'm a motion designer", "i am a video producer",
+  "hire me", "available for work", "available for hire", "seeking work",
+  "i am looking for work", "i'm looking for work", "open to work",
+  "my portfolio is", "my showreel", "check out my portfolio",
+  "my services include", "i provide video", "we provide video editing",
+  "i am a freelancer looking", "willing to relocate", "open to opportunities",
+  "seeking a role", "seeking new opportunities", "for hire",
+  "looking for a job", "looking for new role", "my cv", "my resume",
+  "years of experience in video editing", "i am available for freelance",
+]
+
+# stack-overflow / directory style pages, not real buyer posts
+extraction_negative = [
+  "browse all jobs", "create a job alert", "set up a job alert",
+  "subscribe to our newsletter", "sign up for job alerts",
+  "jobs by category", "all remote jobs", "page not found",
+  "who wants to be hired", "want to be hired",
+]
+
+# JOB TITLES that prove a company is investing in creative/video right now.
+# On a job board, one of these in the title is a strong FIT signal.
+role = [
+  "video editor", "videographer", "ugc creator", "content creator",
+  "motion designer", "video producer", "creative producer",
+  "creative director", "video marketing", "social media manager",
+  "brand manager", "performance marketing", "growth marketing",
+  "media buyer", "paid social", "animator", "3d artist", "video marketing manager",
+  "content marketing manager", "creative strategist", "production manager",
+]
+
+
+# -----------------------------------------------------------------------------
+#  SOURCES
+# -----------------------------------------------------------------------------
+
+[sources.linkedin_jobs]
+enabled  = true
+location = "United States"
+pages    = 2
+queries  = [
+  "UGC creator", "video editor marketing", "creative producer",
+  "paid social creative", "video ads", "brand video", "product video",
+  "motion designer", "3d web developer", "AI video",
+]
+
+[sources.hn_search]
+enabled = true
+queries = [
+  "looking for video editor", "looking for video", "need video editor",
+  "looking for ugc", "hiring video", "need ad creative", "looking for animator",
+  "need 3d website", "looking for motion", "ai receptionist",
+]
+
+[sources.websearch]
+enabled = true           # ON: home-connection IP + corroboration filter guard it.
+# Free web search for buyer-intent phrases. Why it ships disabled by default:
+# most engines serve a DEGRADED SERP to datacenter / VPN / proxy IPs - they
+# match only the first word and silently ignore quotes and operators. Those
+# results look like leads and would waste your sends, so every hit must
+# corroborate the query's own words (see _relevant in lf/sources.py). If
+# nothing corroborates, the source says so and stores nothing rather than
+# inventing rows. From a normal home connection this source works well.
+queries = [
+  "looking for a video editor",
+  "need a UGC creator for my brand",
+  "hiring a motion designer",
+  "need video ads for my business",
+  "looking for a 3d website designer",
+  "need an AI receptionist for my clinic",
+  "looking for someone to make AI video ads",
+  "need a website for my small business",
+  "looking for someone to build my website",
+]
+per_page = 20
+
+[sources.resolve]
+# Company-name -> website resolution (used by `enrich`). A WRONG domain is worse
+# than no domain, because you would email an unrelated company. So a candidate
+# is accepted only when its domain label strictly matches the company name
+# (get-/use-/try- affixes allowed) AND the live site's own title / og:site_name /
+# h1 corroborates the name. Names shorter than 5 characters are skipped as too
+# ambiguous to resolve safely.
+via_search = true        # one focused search lookup per unresolved company
+
+[sources.meta_ads]
+enabled = true
+country = "US"
+queries = ["shop now", "limited time", "new launch", "book now"]
+
+[sources.weworkremotely]
+enabled    = true
+categories = ["remote-design-jobs", "remote-marketing-jobs", "remote-product-jobs",
+              "remote-all-other-remote-jobs"]
+
+[sources.osm_local]
+enabled   = true
+radius_km = 6
+
+[[sources.osm_local.targets]]
+label  = "Jewelry store"
+filter = 'shop="jewelry"'
+cities = [
+  { name = "New York",  lat = 40.7128, lon = -74.0060 },
+  { name = "London",    lat = 51.5074, lon = -0.1278 },
+  { name = "Dubai",     lat = 25.2048, lon = 55.2708 },
+  { name = "Mumbai",    lat = 19.0760, lon = 72.8777 },
+]
+
+[[sources.osm_local.targets]]
+label  = "Dental clinic"
+filter = 'amenity="dentist"'
+cities = [
+  { name = "New York",  lat = 40.7128, lon = -74.0060 },
+  { name = "Miami",     lat = 25.7617, lon = -80.1918 },
+  { name = "Bengaluru", lat = 12.9716, lon = 77.5946 },
+  { name = "Toronto",   lat = 43.6532, lon = -79.3832 },
+]
+
+[[sources.osm_local.targets]]
+label  = "Gym / fitness studio"
+filter = 'leisure="fitness_centre"'
+cities = [
+  { name = "Los Angeles", lat = 34.0522, lon = -118.2437 },
+  { name = "Austin",      lat = 30.2672, lon = -97.7431 },
+  { name = "Delhi",       lat = 28.6139, lon = 77.2090 },
+]
+
+[[sources.osm_local.targets]]
+label  = "Furniture / home decor"
+filter = 'shop="furniture"'
+cities = [
+  { name = "New York", lat = 40.7128, lon = -74.0060 },
+  { name = "Berlin",   lat = 52.5200, lon = 13.4050 },
+]
+
+[[sources.osm_local.targets]]
+label  = "Real estate agency"
+filter = 'office="estate_agent"'
+cities = [
+  { name = "Dubai",    lat = 25.2048, lon = 55.2708 },
+  { name = "Sydney",   lat = -33.8688, lon = 151.2093 },
+  { name = "Bengaluru", lat = 12.9716, lon = 77.5946 },
+]
+
+
+# -----------------------------------------------------------------------------
+#  OPTIONAL CREDENTIALS  -- everything below is a free tier, nothing required.
+#  Add with:  python run.py addkey hunter_api_key YOUR_KEY --section apis
+# -----------------------------------------------------------------------------
+
+[apis]
+hunter_api_key  = ""     # hunter.io  -> 50 free lookups/month
+apollo_api_key  = ""     # apollo.io  -> 900 free credits/year
+snov_token      = ""     # snov.io    -> 50 free credits/month
+meta_access_token = ""   # graph.facebook.com/ads_archive -> free, 1-2 week review
+google_places_key = ""  # set via GOOGLE_PLACES_API_KEY env var
+
+[reddit]
+# Create a free "script" app at https://www.reddit.com/prefs/apps (2 minutes).
+client_id     = ""
+client_secret = ""
+user_agent    = "leadforge/1.0 by your_reddit_username"
+subreddits    = [
+  "forhire", "DesignJobs", "videoediting", "Entrepreneur", "startups",
+  "smallbusiness", "ecommerce", "SaaS", "marketing", "ads",
+]
+queries = [
+  "looking for video editor", "need ugc", "hiring video editor",
+  "need a 3d website", "looking for animator",
+]
+
+
+# -----------------------------------------------------------------------------
+#  OUTREACH TEMPLATES
+#  Placeholders: {company} {offer} {signal} {sender} {title} {url}
+#  Rule: never send the same first line twice. The {signal} token is filled from
+#  what the lead actually said, so every opener is specific and true.
+# -----------------------------------------------------------------------------
+
+[outreach]
+sender_name = "Naveen"
+subject     = "{company} - {offer}?"
+body = """Hi,
+
+I saw {signal} - "{title}" - and thought I might be useful.
+
+I run an AI studio. We produce {offer}: ad creative, product video and UGC-style
+content generated with our own pipeline, so you get volume and variants without
+booking a shoot or a creator every week.
+
+If it helps, I'll make one sample based on what you posted - free, no call, no
+deck. You look at it and tell me yes or no.
+
+Worth trying?
+
+{sender}
+"""
+
+
+# -----------------------------------------------------------------------------
+#  KEY-FREE SOURCES  (merged in - none of these need an API key or token)
+# -----------------------------------------------------------------------------
+
+[sources.reddit_rss]
+# Reddit read through public Atom feeds. No OAuth app, no API key, no rate
+# limit on the app - only per-IP throttling, so it retries politely.
+enabled        = true
+rss_subreddits = [
+  "forhire", "hiring", "VideoEditing", "editors", "motiongraphics",
+  "UGCcreators", "socialmedia", "marketing", "web_design",
+]
+
+[sources.meta_ads_open]
+# Live advertisers from the PUBLIC Meta Ad Library. No developer token, no
+# 1-2 week review. A brand running ads already spends on creative, which makes
+# this the warmest free lead source for an AI ad / UGC studio.
+enabled     = true
+countries   = ["US", "GB"]
+media       = "video"          # video | image | all
+max_scrolls = 8
+headless    = true
+queries = [
+  "skincare", "supplement", "online course",
+]
+
+[sources.google_maps]
+# Local businesses with phone + website + ratings - best for the AI receptionist
+# offer. Runs the Node scraper in ../cli.js, so set it up once with:
+#     npm install   &&   npx playwright install chromium
+enabled       = true           # slow (real browser); run explicitly: python run.py fetch -s google_maps
+max_per_query = 25
+headless      = true
+queries = [
+  "marketing agency in austin tx",
+  "advertising agency in austin tx",
+  "video production company in austin tx",
+  "digital marketing agency in miami fl",
+  "creative agency in miami fl",
+  "web design agency in austin tx",
+  "social media agency in austin tx",
+  "video production company in miami fl",
+  "dental clinic in austin tx",
+  "med spa in miami fl",
+  "dental clinic in miami fl",
+  "med spa in austin tx",
+  "plumber in austin tx",
+  "hvac company in miami fl",
+  "law firm in austin tx",
+  "chiropractor in miami fl",
+  "physical therapy clinic in austin tx",
+  "urgent care in miami fl",
+  "real estate agent in austin tx",
+  "real estate agency in miami fl",
+  "roofing company in austin tx",
+  "veterinary clinic in miami fl",
+  "hair salon in austin tx",
+  "auto repair shop in miami fl",
+  "catering service in austin tx",
+  "photography studio in miami fl",
+  "concrete contractor in austin tx",
+  "cleaning service in miami fl",
+]
+
+[sources.google_places]
+# Official Places API (New). Structured, permitted, one request per query.
+# Uses the FREE monthly allowance; when prefixed by an explicit --source this
+# section only documents the capability. Queries are the same list as
+# google_maps (the adapter reuses it) unless you give it its own list.
+enabled       = true
+max_per_query = 20

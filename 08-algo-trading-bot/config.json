@@ -1,0 +1,12 @@
+{
+  "stage": "PAPER",
+  "account_ccy": "INR",
+  "equity": 100000.0,
+  "risk_pct": 0.01,
+  "_comment": "equity is operator-supplied at this stage and is recorded in the audit log as source=manual. Live stages must replace it with a broker fetch: the harness forbids sizing against a figure the system cannot verify.",
+  "fx_rates": {
+    "USDINR": 87.5,
+    "EURUSD": 1.085,
+    "USDJPY": 150.0
+  }
+}

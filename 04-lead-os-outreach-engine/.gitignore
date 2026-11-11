@@ -1,0 +1,7 @@
+.env
+_state/
+vault/_assets/
+__pycache__/
+*.pyc
+seen.backup.json
+crm/export/

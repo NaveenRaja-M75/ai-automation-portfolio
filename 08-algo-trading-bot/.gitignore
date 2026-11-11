@@ -1,0 +1,10 @@
+.env
+KILL_SWITCH
+data/jevbot/
+__pycache__/
+.pytest_cache/
+JEV_PAUSED
+logs/
+STOP_WATCHDOG
+data/history/
+data/backtest/

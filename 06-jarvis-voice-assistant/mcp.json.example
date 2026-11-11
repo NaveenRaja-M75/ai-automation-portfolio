@@ -1,0 +1,47 @@
+{
+  "_comment": [
+    "Copy to mcp.json (gitignored) and flip `enabled` to true one server at a",
+    "time. Everything here is third-party code that will hold real credentials,",
+    "so add one, use it for a few days, then add the next.",
+    "",
+    "Tokens go in .env and are referenced as ${VAR} — never paste a secret here.",
+    "",
+    "The permission gate classifies every MCP call by the verb in its tool name:",
+    "  list/get/read/search/find  -> runs freely",
+    "  create/update/add/move     -> stops and asks you",
+    "  delete/send/remove/cancel  -> refused outright",
+    "That applies no matter what a server claims about itself, so a mislabelled",
+    "or hostile tool description cannot talk its way into write access."
+  ],
+
+  "mcpServers": {
+    "calendar": {
+      "enabled": false,
+      "command": "npx",
+      "args": ["-y", "@cocal/google-calendar-mcp"],
+      "env": {
+        "GOOGLE_OAUTH_CREDENTIALS": "${GOOGLE_OAUTH_CREDENTIALS}"
+      }
+    },
+
+    "gmail": {
+      "enabled": false,
+      "command": "npx",
+      "args": ["-y", "@gongrzhe/server-gmail-autoauth-mcp"],
+      "env": {
+        "GMAIL_CREDENTIALS_PATH": "${GMAIL_CREDENTIALS_PATH}"
+      }
+    },
+
+    "zapier": {
+      "_warning": [
+        "One credential reaching thousands of services. Your own security",
+        "harness argues against exactly this shape. Prefer per-service servers",
+        "above; only enable this if you accept that blast radius."
+      ],
+      "enabled": false,
+      "type": "http",
+      "url": "${ZAPIER_MCP_URL}"
+    }
+  }
+}

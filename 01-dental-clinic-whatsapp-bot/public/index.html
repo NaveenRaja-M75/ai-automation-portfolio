@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — Dental Clinic</title>
+  <meta name="description" content="Staff dashboard for managing dental clinic appointments, patient bookings, and daily schedule.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============================================
+       LOGIN PAGE
+       ============================================ -->
+  <div id="login-page" class="login-wrapper">
+    <div class="login-card">
+      <div class="login-icon">🦷</div>
+      <h1>Clinic Dashboard</h1>
+      <p class="subtitle">Enter your admin password to continue</p>
+
+      <div id="login-error" class="login-error" role="alert">
+        Incorrect password. Please try again.
+      </div>
+
+      <form id="login-form" autocomplete="off">
+        <div class="input-group">
+          <label for="password-input">Password</label>
+          <input
+            type="password"
+            id="password-input"
+            placeholder="Enter admin password"
+            required
+            autofocus
+          >
+        </div>
+        <button type="submit" id="login-btn" class="btn-login">
+          Sign In
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================
+       DASHBOARD
+       ============================================ -->
+  <div id="dashboard" class="dashboard-wrapper">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <div class="header-logo">🦷</div>
+        <div>
+          <div class="header-title" id="clinic-name">Demo Dental Clinic</div>
+          <div class="header-date" id="header-date"></div>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="refresh-indicator">
+          <span class="refresh-dot"></span>
+          <span>Auto-refresh active</span>
+        </div>
+        <button id="btn-logout" class="btn-logout">Sign Out</button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- Stats Row -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-icon">📋</div>
+          <div class="stat-label">Today's Appointments</div>
+          <div class="stat-value" id="stat-today">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📊</div>
+          <div class="stat-label">Bookings This Month</div>
+          <div class="stat-value" id="stat-month">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">⚠️</div>
+          <div class="stat-label">No-Shows This Month</div>
+          <div class="stat-value" id="stat-noshow">0</div>
+        </div>
+      </div>
+
+      <!-- Toolbar: Tabs + Actions -->
+      <div class="toolbar">
+        <div class="tab-group" role="tablist">
+          <button class="tab-btn active" data-tab="today" role="tab" id="tab-today">
+            Today
+          </button>
+          <button class="tab-btn" data-tab="upcoming" role="tab" id="tab-upcoming">
+            Upcoming (7 days)
+          </button>
+          <button class="tab-btn" data-tab="all" role="tab" id="tab-all">
+            All Appointments
+          </button>
+        </div>
+        <div class="toolbar-actions">
+          <button id="btn-export" class="btn-export">
+            <span>📥</span> Export CSV
+          </button>
+          <button id="btn-manual-refresh" class="btn-refresh">
+            <span class="icon-spin">🔄</span> Refresh
+          </button>
+        </div>
+      </div>
+
+      <!-- Appointments Table -->
+      <div class="table-card">
+        <div class="table-wrapper">
+          <table id="appointments-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Patient Name</th>
+                <th>Phone</th>
+                <th>Treatment</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="appointments-body">
+              <!-- Rows populated by app.js -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Empty state (shown when no appointments match filter) -->
+        <div id="empty-state" class="empty-state" style="display: none;">
+          <div class="icon">📭</div>
+          <h3>No appointments found</h3>
+          <p>There are no appointments matching this filter.</p>
+        </div>
+
+        <!-- Table footer -->
+        <div class="table-footer">
+          <span id="table-count">Showing 0 appointments</span>
+          <span id="last-updated">Last updated: —</span>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ============================================
+       CONFIRMATION MODAL
+       ============================================ -->
+  <div id="status-modal" class="modal-overlay">
+    <div class="modal-card">
+      <h3 id="modal-title">Update Status</h3>
+      <p id="modal-message">Are you sure you want to change the status?</p>
+      <div class="modal-actions">
+        <button id="modal-cancel" class="btn-modal-cancel">Cancel</button>
+        <button id="modal-confirm" class="btn-modal-confirm">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

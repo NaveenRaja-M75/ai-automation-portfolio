@@ -1,0 +1,16 @@
+.env
+.env.*
+!.env.example
+node_modules/
+.next/
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+*.log
+*.db
+*.sqlite
+*.xlsx
+*.csv
+.netlify/

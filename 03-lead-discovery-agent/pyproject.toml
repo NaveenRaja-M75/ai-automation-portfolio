@@ -1,0 +1,27 @@
+[project]
+name = "leadagent"
+version = "0.1.0"
+description = "Automated local-business lead discovery and scoring for an AI automation agency"
+requires-python = ">=3.10"
+dependencies = [
+    "anthropic>=0.40",
+    "httpx>=0.27",
+    "beautifulsoup4>=4.12",
+    "lxml>=5.0",
+    "PyYAML>=6.0",
+    "tenacity>=8.2",
+    "rich>=13.0",
+]
+
+[project.optional-dependencies]
+sheets = ["gspread>=6.0", "google-auth>=2.30"]
+
+[project.scripts]
+leadagent = "leadagent.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

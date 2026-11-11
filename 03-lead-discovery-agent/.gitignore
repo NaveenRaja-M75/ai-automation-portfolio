@@ -1,0 +1,10 @@
+.env
+*.db
+*.sqlite3
+out/
+runs/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+service-account*.json

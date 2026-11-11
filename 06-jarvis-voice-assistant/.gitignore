@@ -1,0 +1,15 @@
+﻿.env
+.venv/
+__pycache__/
+*.pyc
+workspace/
+memory/*.md
+!memory/INDEX.md
+
+mcp.json
+
+# runtime noise
+*.log
+
+# Audit log written by the test suite.
+tests/_audit_test.jsonl

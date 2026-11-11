@@ -1,0 +1,53 @@
+key: dentist
+label: Dental clinics
+
+product: WhatsApp appointment bot + AI voice receptionist
+core_pain: >
+  The front desk is usually a clinical assistant who is chairside during
+  procedures. Calls go unanswered, appointment reminders are typed by hand
+  one at a time, and no-shows are absorbed rather than prevented. Every one
+  of those is a repeated task with a fixed script - which is exactly what an
+  agent replaces.
+
+# --- discovery ------------------------------------------------------------
+osm_filters:
+  - 'node["amenity"="dentist"]'
+  - 'way["amenity"="dentist"]'
+  - 'node["healthcare"="dentist"]'
+  - 'way["healthcare"="dentist"]'
+
+places_queries:
+  - "dental clinic"
+  - "dentist"
+  - "orthodontist"
+  - "dental hospital"
+
+# --- scoring signals ------------------------------------------------------
+signals_positive:
+  ability_to_pay:
+    - "review_count > 60 - busy enough that the repeated work actually hurts"
+    - "staff_count > 2 - multiple chairs means multiple schedules to coordinate"
+    - "multi_location - coordination cost scales with branches"
+    - "runs_ads - already spending to acquire patients, so losing calls is expensive"
+    - "price_level high - implant/ortho/cosmetic work rather than basic extractions"
+  pain_intensity:
+    - "review text mentioning: no answer, couldn't reach, didn't call back, phone busy, no reminder, waited on hold"
+    - "booking_method == call_only - no online booking anywhere"
+    - "whatsapp_listed - already running on WhatsApp, manually, one thumb at a time"
+    - "review_velocity high - sustained inbound volume"
+  reachability:
+    - "owner or lead doctor named on the site"
+    - "direct phone, email, or WhatsApp published"
+  digital_gap:
+    - "no website, or a site that has not changed in years"
+    - "no online booking widget"
+
+signals_negative:
+  - "already using a booking/automation platform (Practo booking, Clinicea, Dentaldesk, Zocdoc)"
+  - "review_count < 15 - too small to carry a retainer"
+  - "permanently closed or no activity in the last 12 months"
+
+angle_template: >
+  You are pulling {review_count} patients through the door. The ones you are
+  losing are the people who called while you were mid-procedure. Their words,
+  not mine: "{pain_evidence}"

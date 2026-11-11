@@ -1,0 +1,44 @@
+run:
+  default_cities: [Chennai, Bengaluru]
+  default_niches: [dentist, real_estate]
+  max_businesses_per_city_niche: 400
+
+discovery:
+  # osm = free, no key, no billing. places = richer data, needs GCP billing.
+  source: osm
+  osm_endpoint: https://overpass-api.de/api/interpreter
+  osm_timeout_s: 180
+  # Google Places caps results at ~60 per query, so a city is covered by
+  # tiling it into a grid of circular searches of this radius.
+  places_tile_radius_m: 2500
+
+enrichment:
+  enabled: true
+  timeout_s: 15
+  max_bytes: 1500000
+  respect_robots: true
+  # Put a real contact address here before running at any scale. Site owners
+  # are entitled to know who is fetching their pages.
+  user_agent: "leadagent/0.1 (+contact: set-me@example.com)"
+  paths: ["/", "/contact", "/contact-us", "/about", "/about-us"]
+
+scoring:
+  prefilter_model: claude-haiku-4-5-20251001
+  score_model: claude-sonnet-5
+  # Weights reflect the offer: AI automation of repeated tasks. Ability to pay
+  # and pain intensity dominate; "no website / old website" is a minor signal.
+  weights:
+    ability_to_pay: 40
+    pain_intensity: 35
+    reachability: 15
+    digital_gap: 10
+  tier_cutoffs:
+    A: 75
+    B: 55
+
+# Hard ceilings per run. The queue checkpoints, so hitting a ceiling stops
+# clean and the next run resumes exactly where this one stopped.
+budget:
+  max_discovery_calls: 200
+  max_enrichment_fetches: 600
+  max_model_calls: 500

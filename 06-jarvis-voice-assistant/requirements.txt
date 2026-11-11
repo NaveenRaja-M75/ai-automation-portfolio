@@ -1,0 +1,6 @@
+﻿# Core - required for text mode
+claude-agent-sdk>=0.2.0
+python-dotenv>=1.0.0
+
+# Vision - screen capture. Ships with most Python installs on Windows.
+pillow>=10.0.0

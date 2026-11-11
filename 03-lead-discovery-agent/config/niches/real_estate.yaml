@@ -1,0 +1,54 @@
+key: real_estate
+label: Real estate agencies and brokers
+
+product: Lead finding + lead qualifying bot (with AI voice/WhatsApp follow-up)
+core_pain: >
+  They already buy leads from portals, then lose most of them to slow first
+  response. Qualifying is the same six questions asked hundreds of times a
+  month - budget, location, configuration, timeline, loan status, site-visit
+  availability. That is a script, and a script is an agent. This niche is the
+  easiest sell of the set because the ROI is legible: they can already put a
+  rupee figure on a lead.
+
+# --- discovery ------------------------------------------------------------
+osm_filters:
+  - 'node["office"="estate_agent"]'
+  - 'way["office"="estate_agent"]'
+  - 'node["shop"="estate_agent"]'
+  - 'way["shop"="estate_agent"]'
+
+places_queries:
+  - "real estate agent"
+  - "property dealer"
+  - "real estate agency"
+  - "property consultant"
+  - "builders and developers"
+
+# --- scoring signals ------------------------------------------------------
+signals_positive:
+  ability_to_pay:
+    - "runs_ads - Meta or Google ad spend is the single strongest budget proof"
+    - "listed on 99acres / MagicBricks / Housing.com - already paying per lead"
+    - "agent_count > 3 - a team implies deal volume"
+    - "multi_location or multiple project listings"
+    - "review_count > 30"
+  pain_intensity:
+    - "review text mentioning: never responded, no callback, didn't answer enquiry, still waiting for details"
+    - "enquiry_form_only - form with no instant response path"
+    - "whatsapp_listed - qualifying happening by hand in chat"
+    - "many active listings relative to team size"
+  reachability:
+    - "named broker/principal rather than a generic office line"
+    - "direct mobile number, which this niche almost always publishes"
+  digital_gap:
+    - "listings not updated recently"
+    - "no CRM or lead-capture beyond a contact form"
+
+signals_negative:
+  - "already running a lead-management CRM with automation (Zoho CRM, Sell.Do, LeadSquared)"
+  - "single freelance broker with no team and no ad spend"
+  - "pure construction contractor with no brokerage arm"
+
+angle_template: >
+  You are paying per lead on {portal}. The ones that go cold are the ones that
+  waited hours for a first reply. A customer put it this way: "{pain_evidence}"

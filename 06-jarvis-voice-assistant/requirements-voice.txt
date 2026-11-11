@@ -1,0 +1,23 @@
+# Voice - install after text mode works.
+#
+# `pip install RealtimeSTT` alone is NOT enough. It leaves out the transcription
+# engine and the voice-activity detector, and the failure only shows up when you
+# first open the microphone, as an unhelpful WinError 127. Every package below
+# is required; the comments say why, so nothing gets trimmed later by accident.
+-r requirements.txt
+
+# --- Text to speech ---------------------------------------------------------
+edge-tts>=6.1.0        # Microsoft neural voices, free, no API key
+pygame>=2.5.0          # mp3 playback with instant stop (barge-in)
+
+# --- Speech to text ---------------------------------------------------------
+RealtimeSTT>=1.0.0
+faster-whisper>=1.0.0  # the actual transcription engine; NOT pulled in above
+
+# Voice activity detection. RealtimeSTT prefers an ONNX Silero backend and only
+# falls back to the torch one, which is good: the torch path depends on
+# torchaudio, and a torch/torchaudio version mismatch fails with a bare
+# "[WinError 127] The specified procedure could not be found".
+# These two keep VAD on the ONNX path, so torch is never in that loop.
+silero-vad>=5.0        # ships the .onnx model files
+onnxruntime>=1.17      # runs them
